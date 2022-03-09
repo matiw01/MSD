@@ -25,26 +25,16 @@ public class Point {
 	}
 
 	public void calculateNewState() {
-		//number of active neighbors
-		int numOfAliveNeigh = this.calculateNeighbours();
-		switch (currentState){
-			case 0:
-				if (numOfAliveNeigh == 3) {
-					nextState = 1;
-				}
-				else {
-					nextState = currentState;
-				}
-				break;
-			case 1:
-				if (numOfAliveNeigh != 2 && numOfAliveNeigh != 3){
-					nextState = 0;
-				}
-				else {
-					nextState = currentState;
-				}
-				break;
-		}
+		if (currentState > 0)
+			nextState = currentState - 1;
+		if (!neighbors.isEmpty() && neighbors.get(0).currentState == 0)
+			neighbors.get(0).nextState = currentState;
+
+	}
+
+	public void drop(){
+		if (Math.random() < 0.05)
+			nextState = 6;
 	}
 
 	public void changeState() {
